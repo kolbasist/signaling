@@ -53,7 +53,7 @@ public class MoverByThreePoints : MonoBehaviour
     
     private void Update()
     {
-        
+        _transform.position = Vector3.MoveTowards(_pathPoints[0], _pathPoints[3], _speed);
     }
 
     private void SetInitialSprite()
