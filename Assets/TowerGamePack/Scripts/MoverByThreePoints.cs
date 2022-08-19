@@ -5,35 +5,31 @@ using UnityEngine;
 using UnityEngine.TextCore.Text;
 
 [RequireComponent(typeof(Transform))]
-[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(SpriteSetter))]
 
 public class MoverByThreePoints : MonoBehaviour
 {
     [SerializeField] private float _speed = 2f;
     [SerializeField] private Transform _path;
     [SerializeField] private Transform _target;
-    [SerializeField] private Sprite _initialSprite;
-    [SerializeField] private Sprite _finalSprite;
-    [SerializeField] private float _scaleMultiplier;
-    
+    [SerializeField] private float _fadingTime;
+
     private Transform _transform;
     private Vector3[] _pathPoints = new Vector3[4];
     private int _endsOfLineCount = 2;
-    private SpriteRenderer _spriteRenderer;
-    private Vector3 _initialScale;
-    private Vector3 _finalScale;
+    private bool _isSpriteChanged;
+    private float _moveCycleDuration = 5f;
+    private SpriteSetter _spriteSetter;
+    private int[] _order = new int[] { 1, 2, 1, 3 };
+    private int _currentTarget;
+    private WaitForSeconds _grabbingTime;
 
     private void Awake()
     {
-        _transform = gameObject.GetComponent<Transform>();
-        _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-
-        Vector2 initialSize = _initialSprite.texture.Size();
-        Vector2 finalSize = _finalSprite.texture.Size();
-        _initialScale = finalSize / initialSize;
-        _finalScale = initialSize / finalSize;
-
-        SetInitialSprite();     
+        _transform = gameObject.GetComponent<Transform>();       
+        _spriteSetter = gameObject.GetComponent<SpriteSetter>();
+        _spriteSetter.SetInitialSprite();
+        _grabbingTime = new WaitForSeconds(_fadingTime);
 
         if (_path.childCount > _endsOfLineCount) 
         { 
@@ -47,24 +43,42 @@ public class MoverByThreePoints : MonoBehaviour
         }
 
         _pathPoints[3] = _pathPoints[1];
-        _pathPoints[1] = new Vector3((_pathPoints[0].y + _pathPoints[3].y) / 2, _target.position.x);
+        _pathPoints[1] = Vector3.Lerp(_pathPoints[3], _pathPoints[0], 0.5f);
         _pathPoints[2] = _target.position;
+        _currentTarget = 0;
     }
     
     private void Update()
     {
-        _transform.position = Vector3.MoveTowards(_pathPoints[0], _pathPoints[3], _speed);
-    }
+        float linearizedPosition = (Time.time % _moveCycleDuration)/_moveCycleDuration;        
 
-    private void SetInitialSprite()
-    {
-        _spriteRenderer.sprite = _initialSprite;
-        _transform.localScale = _initialScale*_scaleMultiplier;
-    }
+        Vector3 currentPath  =  _pathPoints[3] - _pathPoints[0];
+        //Debug.Log(linearizedPosition + " " + _isSpriteChanged);
+        _transform.position = Vector3.MoveTowards(_transform.position, _pathPoints[_order[_currentTarget]], _speed*Time.deltaTime);
+        if (transform.position == _pathPoints[_order[_currentTarget]])
+        {
+            _currentTarget++;
 
-    private void SetFinalSprite()
+            if (_currentTarget >= _order.Length) { 
+                _currentTarget = 0; 
+                _transform.position = _pathPoints[0];
+                _spriteSetter.SetInitialSprite();
+            }
+                
+            if (_transform.position == _pathPoints[2])
+            {
+                var wait = StartCoroutine(GrabTower());
+            }
+        }
+    }  
+
+    private IEnumerator GrabTower()
     {
-        _spriteRenderer.sprite = _finalSprite;
-        _transform.localScale = _finalScale*_scaleMultiplier;
+        float speed = _speed;
+        _speed = 0f;
+        Debug.Log("grab " + Time.time);
+        yield return _grabbingTime;
+        Debug.Log("Exit " + Time.time);
+        _speed = speed;
     }
 }
