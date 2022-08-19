@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
-
 [RequireComponent(typeof(Transform))]
-[RequireComponent(typeof(SpriteSetter))]
 
 public class MoverByThreePoints : MonoBehaviour
 {
@@ -17,18 +15,14 @@ public class MoverByThreePoints : MonoBehaviour
     private Transform _transform;
     private Vector3[] _pathPoints = new Vector3[4];
     private int _endsOfLineCount = 2;
-    private bool _isSpriteChanged;
     private float _moveCycleDuration = 5f;
-    private SpriteSetter _spriteSetter;
     private int[] _order = new int[] { 1, 2, 1, 3 };
     private int _currentTarget;
     private WaitForSeconds _grabbingTime;
 
     private void Awake()
     {
-        _transform = gameObject.GetComponent<Transform>();       
-        _spriteSetter = gameObject.GetComponent<SpriteSetter>();
-        _spriteSetter.SetInitialSprite();
+        _transform = gameObject.GetComponent<Transform>(); 
         _grabbingTime = new WaitForSeconds(_fadingTime);
 
         if (_path.childCount > _endsOfLineCount) 
@@ -61,8 +55,7 @@ public class MoverByThreePoints : MonoBehaviour
 
             if (_currentTarget >= _order.Length) { 
                 _currentTarget = 0; 
-                _transform.position = _pathPoints[0];
-                _spriteSetter.SetInitialSprite();
+                _transform.position = _pathPoints[0];                
             }
                 
             if (_transform.position == _pathPoints[2])

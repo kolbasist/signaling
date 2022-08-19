@@ -11,6 +11,7 @@ public class SpriteSetter : MonoBehaviour
     [SerializeField] private Sprite _initialSprite;
     [SerializeField] private Sprite _finalSprite;
     [SerializeField] private float _scaleMultiplier;
+    [SerializeField] private Transform _initialPoint;
 
     private Transform _transform;
     private SpriteRenderer _spriteRenderer;
@@ -22,7 +23,15 @@ public class SpriteSetter : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _transform = GetComponent<Transform>();
         SetScales();
+        SetInitialSprite();
     }
+
+    private void Update()
+    {
+        if (transform.position == _initialPoint.position)
+            SetInitialSprite();
+    }
+
     private void SetScales()
     {
         Vector2 initialSize = _initialSprite.texture.Size();
