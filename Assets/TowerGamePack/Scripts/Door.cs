@@ -10,8 +10,7 @@ public class Door : MonoBehaviour
         Debug.Log("enter");
         if (collision.TryGetComponent(out SpriteSetter spriteSetter))
         {
-            spriteSetter.SetEmpty();
-            Debug.Log("door enter");
+            spriteSetter.SetEmpty();           
         }
     }
 
@@ -20,8 +19,7 @@ public class Door : MonoBehaviour
         Debug.Log("exit");
         if (collision.TryGetComponent(out SpriteSetter spriteSetter))
         {
-            spriteSetter.SetFinalSprite();
-            Debug.Log("Door exit");
+            spriteSetter.SetFinalSprite();            
         }
     }
 }
