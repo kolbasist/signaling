@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
-[RequireComponent(typeof(Transform))]
 
 public class MoverByThreePoints : MonoBehaviour
 {
@@ -12,7 +10,6 @@ public class MoverByThreePoints : MonoBehaviour
     [SerializeField] private Transform _target;
     [SerializeField] private float _timeToGrab;
 
-    private Transform _transform;
     private Vector3[] _pathPoints = new Vector3[4];
     private int _endsOfLineCount = 2;
     private int[] _order = new int[] { 1, 2, 1, 3 };
@@ -20,8 +17,7 @@ public class MoverByThreePoints : MonoBehaviour
     private WaitForSeconds _grabbingTime;
 
     private void Awake()
-    {
-        _transform = gameObject.GetComponent<Transform>(); 
+    {      
         _grabbingTime = new WaitForSeconds(_timeToGrab);
 
         if (_path.childCount > _endsOfLineCount) 
@@ -43,17 +39,17 @@ public class MoverByThreePoints : MonoBehaviour
     
     private void Update()
     {           
-        _transform.position = Vector3.MoveTowards(_transform.position, _pathPoints[_order[_currentTarget]], _speed*Time.deltaTime);
-        if (transform.position == _pathPoints[_order[_currentTarget]])
+        transform.position = Vector3.MoveTowards(transform.position, _pathPoints[_order[_currentTarget]], _speed*Time.deltaTime);
+        if (base.transform.position == _pathPoints[_order[_currentTarget]])
         {
             _currentTarget++;
 
-            if (_currentTarget >= _order.Length) { 
-                _currentTarget = 0; 
-                _transform.position = _pathPoints[0];                
+            if (_currentTarget >= _order.Length) {
+                _currentTarget = 0;
+                transform.position = _pathPoints[0];                
             }
                 
-            if (_transform.position == _pathPoints[2])
+            if (transform.position == _pathPoints[2])
             {
                 StartCoroutine(GrabTower());
             }

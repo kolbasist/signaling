@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-[RequireComponent(typeof(Transform))]
 [RequireComponent(typeof(SpriteRenderer))]
 
 public class SpriteSetter : MonoBehaviour
@@ -13,22 +12,20 @@ public class SpriteSetter : MonoBehaviour
     [SerializeField] private float _scaleMultiplier;
     [SerializeField] private Transform _initialPoint;
 
-    private Transform _transform;
     private SpriteRenderer _spriteRenderer;
     private Vector2 _initialScale;
     private Vector2 _finalScale;
 
     private void Awake()
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-        _transform = GetComponent<Transform>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();       
         SetScales();
         SetInitialSprite();
     }
 
     private void Update()
     {
-        if (transform.position == _initialPoint.position)
+        if (base.transform.position == _initialPoint.position)
             SetInitialSprite();
     }
 
@@ -52,13 +49,13 @@ public class SpriteSetter : MonoBehaviour
     public void SetInitialSprite()
     {
         _spriteRenderer.sprite = _initialSprite;
-        _transform.localScale = _initialScale * _scaleMultiplier;
+        transform.localScale = _initialScale * _scaleMultiplier;
     }
 
     public void SetFinalSprite()
     {
         _spriteRenderer.sprite = _finalSprite;
-        _transform.localScale = _finalScale * _scaleMultiplier;
+        transform.localScale = _finalScale * _scaleMultiplier;
     }
 
     public void SetEmpty()

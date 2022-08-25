@@ -9,8 +9,8 @@ using UnityEngine.Events;
 
 public class AlarmHorn : MonoBehaviour
 {   
-    [SerializeField] float _fadeDuration;
-    [SerializeField] AudioClip _clip;
+    [SerializeField] private float _fadeDuration;
+    [SerializeField] private AudioClip _clip;
 
     private AudioSource _source;
     private Coroutine _fadeInJob;
