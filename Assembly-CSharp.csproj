@@ -57,8 +57,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\TowerGamePack\Scripts\AlarmHorn.cs" />
-    <Compile Include="Assets\TowerGamePack\Scripts\Thiev.cs" />
-    <Compile Include="Assets\TowerGamePack\Scripts\Test.cs" />
     <Compile Include="Assets\TowerGamePack\Scripts\MoverByThreePoints.cs" />
     <Compile Include="Assets\TowerGamePack\Scripts\SpriteSetter.cs" />
     <Compile Include="Assets\TowerGamePack\Scripts\Door.cs" />

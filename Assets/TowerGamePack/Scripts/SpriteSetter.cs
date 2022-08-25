@@ -15,8 +15,8 @@ public class SpriteSetter : MonoBehaviour
 
     private Transform _transform;
     private SpriteRenderer _spriteRenderer;
-    private Vector3 _initialScale;
-    private Vector3 _finalScale;
+    private Vector2 _initialScale;
+    private Vector2 _finalScale;
 
     private void Awake()
     {
@@ -41,11 +41,11 @@ public class SpriteSetter : MonoBehaviour
 
         if (_initialScale.magnitude > _finalScale.magnitude)
         {
-            _finalScale = Vector3.one;
+            _finalScale = Vector2.one;
         }
         else
         {
-            _initialScale = Vector3.one;
+            _initialScale = Vector2.one;
         }
     }
 

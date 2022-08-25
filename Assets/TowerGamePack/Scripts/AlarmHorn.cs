@@ -8,9 +8,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(AudioSource))]
 
 public class AlarmHorn : MonoBehaviour
-{
-    [SerializeField] UnityEvent _crossedIn;
-    [SerializeField] UnityEvent _crossedOut;
+{   
     [SerializeField] float _fadeDuration;
     [SerializeField] AudioClip _clip;
 
@@ -42,20 +40,11 @@ public class AlarmHorn : MonoBehaviour
     {
         while (_source.volume != value)
         {
-            _source.volume = Mathf.MoveTowards(_source.volume, value, Time.deltaTime / _fadeDuration);
-            Debug.Log(_source.volume);
+            _source.volume = Mathf.MoveTowards(_source.volume, value, Time.deltaTime / _fadeDuration);            
             yield return null;
         }
 
         if (_source.volume == 0f)
             _source.Stop();
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.TryGetComponent(out Thiev thiev))
-        {
-            _crossedOut?.Invoke();
-        }
-    }
+    }    
 }
