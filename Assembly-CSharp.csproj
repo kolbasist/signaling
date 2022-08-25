@@ -56,12 +56,12 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\TowerGamePack\Scripts\MoverByThreePoints.cs" />
-    <Compile Include="Assets\TowerGamePack\Scripts\SpriteSetter.cs" />
-    <Compile Include="Assets\TowerGamePack\Scripts\Door.cs" />
     <Compile Include="Assets\TowerGamePack\Scripts\AlarmHorn.cs" />
     <Compile Include="Assets\TowerGamePack\Scripts\Thiev.cs" />
     <Compile Include="Assets\TowerGamePack\Scripts\Test.cs" />
+    <Compile Include="Assets\TowerGamePack\Scripts\MoverByThreePoints.cs" />
+    <Compile Include="Assets\TowerGamePack\Scripts\SpriteSetter.cs" />
+    <Compile Include="Assets\TowerGamePack\Scripts\Door.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
