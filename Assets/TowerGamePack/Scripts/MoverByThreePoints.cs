@@ -13,16 +13,11 @@ public class MoverByThreePoints : MonoBehaviour
     private Vector3[] _pathPoints = new Vector3[4];
     private int _endsOfLineCount = 2;
     private int[] _order = new int[] { 1, 2, 1, 3 };
-    private int _currentTarget;
-    private WaitForSeconds _grabbingTime;
+    private int _currentTarget;   
 
     private void Awake()
     {
-        int begin = 0;
-        int end = 3;
-        float middlepoint = 1 / 2;
-        _grabbingTime = new WaitForSeconds(_timeToGrab);
-        //better generate _grabtime before start coroutine
+        float middlepoint = 1f / 2f;
 
         if (_path.childCount > _endsOfLineCount) 
         { 
@@ -30,21 +25,24 @@ public class MoverByThreePoints : MonoBehaviour
             return;
         }
 
+        Vector3[] points = new Vector3[_endsOfLineCount];
+
         for(int i = 0; i < _path.childCount; i++)
         {            
-            _pathPoints[i] = _path.GetChild(i).transform.position;            
+            points[i] = _path.GetChild(i).transform.position;            
         }
 
-        _pathPoints[3] = _pathPoints[1];
-        _pathPoints[1] = Vector3.Lerp(_pathPoints[end], _pathPoints[begin], middlepoint);
+        _pathPoints[0] = points[0];
+        _pathPoints[1] = Vector3.Lerp(points[0], points[1], middlepoint);
         _pathPoints[2] = _target.position;
-        _currentTarget = 0;
+        _pathPoints[3] = points[1];
+        _currentTarget = 0;       
     }
     
     private void Update()
     {           
         transform.position = Vector3.MoveTowards(transform.position, _pathPoints[_order[_currentTarget]], _speed*Time.deltaTime);
-        if (base.transform.position == _pathPoints[_order[_currentTarget]])
+        if (transform.position == _pathPoints[_order[_currentTarget]])
         {
             _currentTarget++;
 
@@ -65,7 +63,7 @@ public class MoverByThreePoints : MonoBehaviour
         float speed = _speed;
         float grabbingSpeed = 0f;
         _speed = grabbingSpeed;       
-        yield return _grabbingTime;        
+        yield return new WaitForSeconds(_timeToGrab);        
         _speed = speed;
     }
 }

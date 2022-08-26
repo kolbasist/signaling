@@ -4673,7 +4673,6 @@ GameObject:
   - component: {fileID: 1248094855}
   - component: {fileID: 1248094854}
   - component: {fileID: 1248094856}
-  - component: {fileID: 1248094857}
   m_Layer: 0
   m_Name: thiev
   m_TagString: Untagged
@@ -4789,7 +4788,7 @@ MonoBehaviour:
   _speed: 16
   _path: {fileID: 1540975002}
   _target: {fileID: 264131278}
-  _timeToGrab: 0
+  _timeToGrab: 10
 --- !u!114 &1248094855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4827,18 +4826,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1248094857
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1248094850}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e46f80d92a7904243987d556a432599a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1278574252
 GameObject:
   m_ObjectHideFlags: 0
