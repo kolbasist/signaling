@@ -14,18 +14,20 @@ public class AlarmHorn : MonoBehaviour
 
     private AudioSource _source;
     private Coroutine _fadeInJob;
+    private float _minVolume = 0f;
+    private float _maxVolume = 1f;
 
     private void Start()
     {
         _source = GetComponent<AudioSource>();
         _source.clip = _clip;
         _source.loop = true;
-        _source.volume = 0f;
+        _source.volume = _minVolume;
     }
 
     public void SetOn()
     {
-        _fadeInJob = StartCoroutine(FadeVolume(1f));
+        _fadeInJob = StartCoroutine(FadeVolume(_maxVolume));
         _source.Play();
     }
 
@@ -33,7 +35,7 @@ public class AlarmHorn : MonoBehaviour
     {
         if (_fadeInJob != null)
             StopCoroutine(_fadeInJob);
-        StartCoroutine(FadeVolume(0f));
+        StartCoroutine(FadeVolume(_minVolume));
     }
 
     private IEnumerator FadeVolume(float value)
@@ -44,7 +46,7 @@ public class AlarmHorn : MonoBehaviour
             yield return null;
         }
 
-        if (_source.volume == 0f)
+        if (_source.volume == _minVolume)
             _source.Stop();
     }    
 }

@@ -17,7 +17,10 @@ public class MoverByThreePoints : MonoBehaviour
     private WaitForSeconds _grabbingTime;
 
     private void Awake()
-    {      
+    {
+        int begin = 0;
+        int end = 3;
+        float middlepoint = 1 / 2;
         _grabbingTime = new WaitForSeconds(_timeToGrab);
 
         if (_path.childCount > _endsOfLineCount) 
@@ -32,7 +35,7 @@ public class MoverByThreePoints : MonoBehaviour
         }
 
         _pathPoints[3] = _pathPoints[1];
-        _pathPoints[1] = Vector3.Lerp(_pathPoints[3], _pathPoints[0], 0.5f);
+        _pathPoints[1] = Vector3.Lerp(_pathPoints[end], _pathPoints[begin], middlepoint);
         _pathPoints[2] = _target.position;
         _currentTarget = 0;
     }
@@ -59,7 +62,8 @@ public class MoverByThreePoints : MonoBehaviour
     private IEnumerator GrabTower()
     {
         float speed = _speed;
-        _speed = 0f;       
+        float grabbingSpeed = 0f;
+        _speed = grabbingSpeed;       
         yield return _grabbingTime;        
         _speed = speed;
     }

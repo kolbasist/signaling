@@ -8,6 +8,7 @@ public class Door : MonoBehaviour
 {
     [SerializeField] private UnityEvent _lineCrossedIn;
     [SerializeField] private UnityEvent _lineCrossedOut;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {       
         if (collision.TryGetComponent(out SpriteSetter spriteSetter))
