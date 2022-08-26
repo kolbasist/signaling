@@ -60,6 +60,7 @@
     <Compile Include="Assets\TowerGamePack\Scripts\MoverByThreePoints.cs" />
     <Compile Include="Assets\TowerGamePack\Scripts\SpriteSetter.cs" />
     <Compile Include="Assets\TowerGamePack\Scripts\Door.cs" />
+    <Compile Include="Assets\TowerGamePack\Scripts\PathParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

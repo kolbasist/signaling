@@ -10,32 +10,14 @@ public class MoverByThreePoints : MonoBehaviour
     [SerializeField] private Transform _target;
     [SerializeField] private float _timeToGrab;
 
-    private Vector3[] _pathPoints = new Vector3[4];
-    private int _endsOfLineCount = 2;
+    private Vector3[] _pathPoints;
     private int[] _order = new int[] { 1, 2, 1, 3 };
     private int _currentTarget;   
 
     private void Awake()
     {
-        float middlepoint = 1f / 2f;
-
-        if (_path.childCount > _endsOfLineCount) 
-        { 
-            Debug.Log("Too much elements in path gameobject.");
-            return;
-        }
-
-        Vector3[] points = new Vector3[_endsOfLineCount];
-
-        for(int i = 0; i < _path.childCount; i++)
-        {            
-            points[i] = _path.GetChild(i).transform.position;            
-        }
-
-        _pathPoints[0] = points[0];
-        _pathPoints[1] = Vector3.Lerp(points[0], points[1], middlepoint);
-        _pathPoints[2] = _target.position;
-        _pathPoints[3] = points[1];
+        PathParser pathParser = new PathParser();
+        _pathPoints = pathParser.Parse(_path, _target);
         _currentTarget = 0;       
     }
     
@@ -51,7 +33,7 @@ public class MoverByThreePoints : MonoBehaviour
                 transform.position = _pathPoints[0];                
             }
                 
-            if (transform.position == _pathPoints[2])
+            if (transform.position == _target.position)
             {
                 StartCoroutine(GrabTower());
             }
