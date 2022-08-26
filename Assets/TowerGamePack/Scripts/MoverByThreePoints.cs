@@ -22,7 +22,7 @@ public class MoverByThreePoints : MonoBehaviour
         int end = 3;
         float middlepoint = 1 / 2;
         _grabbingTime = new WaitForSeconds(_timeToGrab);
-        //хуйня, лучше генерировать ожидалку при каждом старте корутины
+        //better generate _grabtime before start coroutine
 
         if (_path.childCount > _endsOfLineCount) 
         { 
